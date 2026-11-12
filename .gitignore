@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+.eggs/
+build/
+dist/
+.pytest_cache/
+.tox/
+.venv/
+venv/
+env/
+
+# Validation harness regenerable outputs (reproducible via validate.py)
+validation/out/
+validation/downloads/
+# Ad-hoc fetched sequences (the curated public set in validation/data/ is kept)
+validation/data/extra*.fasta
+
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/

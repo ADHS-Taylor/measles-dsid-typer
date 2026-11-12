@@ -1,0 +1,47 @@
+{% set name = "measles-dsid-typer" %}
+{% set version = "0.1.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  # For a Bioconda submission, point this at the tagged GitHub release tarball
+  # and fill in the sha256. During local testing you can build from ../ with
+  # `conda build .` after setting `source: path: ..`.
+  url: https://github.com/ADHS-Taylor/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: 0000000000000000000000000000000000000000000000000000000000000000
+
+build:
+  number: 0
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  entry_points:
+    - measles-dsid-typer = measles_dsid_typer.cli:main
+
+requirements:
+  host:
+    - python >=3.8
+    - pip
+    - setuptools >=61
+  run:
+    - python >=3.8
+    - pysam >=0.21   # enables BAM/CRAM input
+
+test:
+  imports:
+    - measles_dsid_typer
+  commands:
+    - measles-dsid-typer --version
+    - measles-dsid-typer --help
+
+about:
+  home: https://github.com/ADHS-Taylor/measles-dsid-typer
+  license: MIT
+  license_file: LICENSE
+  summary: Deterministic N-450 DSID sub-lineage typing for measles virus from FASTA/FASTQ/BAM.
+  dev_url: https://github.com/ADHS-Taylor/measles-dsid-typer
+
+extra:
+  recipe-maintainers:
+    - ADHS-Taylor

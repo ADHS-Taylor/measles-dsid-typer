@@ -1,0 +1,57 @@
+[build-system]
+requires = ["setuptools>=77.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "measles-dsid-typer"
+version = "0.1.0"
+description = "Deterministic N-450 DSID sub-lineage typing for measles virus from FASTA/FASTQ/BAM."
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Taylor Martins" }]
+keywords = [
+    "measles",
+    "genotyping",
+    "N-450",
+    "DSID",
+    "sublineage",
+    "bioinformatics",
+    "genomic-surveillance",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+# Core typing (FASTA + FASTQ consensus) has ZERO third-party dependencies.
+dependencies = []
+
+[project.optional-dependencies]
+# BAM/CRAM input needs pysam. Keep it optional so the base install is pure.
+bam = ["pysam>=0.21"]
+dev = ["pytest>=7.0", "pysam>=0.21"]
+
+[project.scripts]
+measles-dsid-typer = "measles_dsid_typer.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/ADHS-Taylor/measles-dsid-typer"
+Repository = "https://github.com/ADHS-Taylor/measles-dsid-typer"
+Issues = "https://github.com/ADHS-Taylor/measles-dsid-typer/issues"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+measles_dsid_typer = ["data/*.fasta", "data/*.csv"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
